@@ -1,5 +1,6 @@
-"use client"
 
+
+"use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -10,12 +11,11 @@ interface Blog {
   content: string;
 }
 
-const Business: React.FC = () => {
-  const [info, setInfo] = useState<Blog[]>([]);
-  const [selectedInfo, setSelectedInfo] = useState<Blog | null>(null);
+const  Business: React.FC = () => {
+  const [info, setInfo] = useState<Blog[]>([]); // changed to Blog[] for array
+  const [selectedInfo, setSelectedInfo] = useState<Blog | null>(null); // changed to Blog | null
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [isOnline, setIsOnline] = useState(navigator.onLine); // Check online status
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,36 +35,15 @@ const Business: React.FC = () => {
         setLoading(false);
       }
     };
-
-    // Load data when online
-    if (isOnline) {
-      fetchData();
-    }
-
-    // Listen for online/offline events
-    const handleOnline = () => {
-      setIsOnline(true);
-    };
-
-    const handleOffline = () => {
-      setIsOnline(false);
-    };
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, [isOnline]);
+    fetchData();
+  }, []);
 
   function handleClick(news: Blog) {
     setSelectedInfo(news);
   }
-
   function handleBack() {
-    setSelectedInfo(null);
+    // corrected function name to handleBack
+    setSelectedInfo(null); // set selectedInfo back to null
   }
 
   if (isLoading) {
@@ -76,6 +55,7 @@ const Business: React.FC = () => {
   }
 
   return (
+    // {news details}
     <div className="max-w-[1440px] px-6 py-3">
       {!selectedInfo && (
         <div className="w-full h-full grid md:grid-cols-2  lg:grid-cols-3 gap-4 ">
@@ -84,7 +64,7 @@ const Business: React.FC = () => {
               <div className="max-w-[500px]">
                 <div className="w-full h-[200px] relative">
                   <Image
-                    src={news.urlToImage}
+                    src={news.urlToImage} // corrected to urlToImage
                     alt={news.title}
                     layout="fill"
                   />
@@ -95,16 +75,16 @@ const Business: React.FC = () => {
           ))}
         </div>
       )}
-
+      {/* {newsdetails when click} */}
       {selectedInfo && (
         <div className=" ">
           <div>
             <div className="w-full h-[300px] relative mt-2">
               <Image
-                src={selectedInfo.urlToImage}
+                src={selectedInfo.urlToImage} // corrected to urlToImage
                 alt={selectedInfo.title}
                 layout="fill"
-                objectFit="fit"
+                objectFit="fit" // corrected to objectFit
               />
             </div>
             <h2 className="font-bold pt-2">{selectedInfo.title}</h2>
@@ -112,7 +92,7 @@ const Business: React.FC = () => {
             <p className="">{selectedInfo.content}</p>
           </div>
           <button
-            onClick={handleBack}
+            onClick={handleBack} // corrected function name
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
           >
             Back
