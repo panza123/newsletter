@@ -1,3 +1,5 @@
+
+
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -5,11 +7,11 @@ import Image from "next/image";
 interface Blog {
   title: string;
   description: string;
-  image: string;
+  urlToImage: string;
   content: string;
 }
 
-const Home: React.FC = () => {
+const  Business: React.FC = () => {
   const [info, setInfo] = useState<Blog[]>([]); // changed to Blog[] for array
   const [selectedInfo, setSelectedInfo] = useState<Blog | null>(null); // changed to Blog | null
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +22,7 @@ const Home: React.FC = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          "https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=59a1033bb71ae9522fc56d40af3ed426"
+          "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=9696ab73d6334219b5d96f8e509de019"
         );
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -62,7 +64,7 @@ const Home: React.FC = () => {
               <div className="max-w-[500px]">
                 <div className="w-full h-[200px] relative">
                   <Image
-                    src={news.image} // corrected to urlToImage
+                    src={news.urlToImage} // corrected to urlToImage
                     alt={news.title}
                     layout="fill"
                   />
@@ -79,7 +81,7 @@ const Home: React.FC = () => {
           <div>
             <div className="w-full h-[300px] relative mt-2">
               <Image
-                src={selectedInfo.image} // corrected to urlToImage
+                src={selectedInfo.urlToImage} // corrected to urlToImage
                 alt={selectedInfo.title}
                 layout="fill"
                 objectFit="fit" // corrected to objectFit
@@ -101,4 +103,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Business;

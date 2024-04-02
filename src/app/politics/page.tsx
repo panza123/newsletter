@@ -1,3 +1,6 @@
+
+
+
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -9,7 +12,7 @@ interface Blog {
   content: string;
 }
 
-const Home: React.FC = () => {
+const Politics: React.FC = () => {
   const [info, setInfo] = useState<Blog[]>([]); // changed to Blog[] for array
   const [selectedInfo, setSelectedInfo] = useState<Blog | null>(null); // changed to Blog | null
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +23,7 @@ const Home: React.FC = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          "https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=59a1033bb71ae9522fc56d40af3ed426"
+          "https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=10&apikey=59a1033bb71ae9522fc56d40af3ed426"
         );
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -101,4 +104,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Politics;
